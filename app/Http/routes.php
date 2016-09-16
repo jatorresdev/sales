@@ -14,3 +14,12 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->group(['namespace' => 'App\Http\Controllers'] , function($app){
+    $api = 'api';
+    $app->get($api.'/', ['uses' => 'PublicationController@getPublications', 'as' => 'allPublications']);
+    $app->get($api.'/publication/{id}', ['uses' => 'PublicationController@getPublication', 'as' => 'singlePublication']);
+    $app->post($api.'/publication', ['uses' => 'PublicationController@savePublication', 'as' => 'savePublication']);
+    $app->put($api.'/publication/{id}', ['uses' => 'PublicationController@updatePublication', 'as' => 'updatePublication']);
+    $app->delete($api.'/publication/{id}', ['uses' => 'PublicationController@deletePublication', 'as' => 'deletePublication']);
+});
