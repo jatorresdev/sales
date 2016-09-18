@@ -31,16 +31,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
     /**
-     * Get the publication that owns the user.
+     * Get the publications for the user.
      */
     public function publications() {
         return $this->hasMany('App\Publication');
     }
 
     /**
-     * Get the comment that owns the user.
+     * Get the comments for the user.
      */
-    public function comment() {
-        return $this->belongsTo('App\Comment');
+    public function comments() {
+        return $this->hasMany('App\Comment');
     }
 }

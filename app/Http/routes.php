@@ -63,4 +63,31 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'],
             'as' => 'destroyPublication'
         ]);
 
+
+        // Comment
+        $app->get('publication/{publication}/comment', [
+            'uses' => 'CommentController@index',
+            'as' => 'showComments'
+        ]);
+
+        $app->get('publication/{publication}/comment/{id}', [
+            'uses' => 'CommentController@show',
+            'as' => 'showComment'
+        ]);
+
+        $app->post('publication/{publication}/comment', [
+            'uses' => 'CommentController@store',
+            'as' => 'storeComment'
+        ]);
+
+        $app->put('publication/{publication}/comment/{id}', [
+            'uses' => 'CommentController@update',
+            'as' => 'updateComment'
+        ]);
+
+        $app->delete('publication/{publication}/comment/{id}', [
+            'uses' => 'CommentController@destroy',
+            'as' => 'destroyComment'
+        ]);
+
     });

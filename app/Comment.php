@@ -13,13 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model {
     protected $table = 'comments';
 
-    protected $fillable = ['comment', 'publication_id', 'user_id'];
+    protected $fillable = ['message', 'publication_id', 'user_id'];
 
     /**
-     * Get the user for the comment.
+     * Get the user that owns the comment.
      */
     public function user() {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
 
     /**
