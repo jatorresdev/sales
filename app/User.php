@@ -29,4 +29,18 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * Get the publication that owns the user.
+     */
+    public function publication() {
+        return $this->belongsTo('App\Publication');
+    }
+
+    /**
+     * Get the comment that owns the user.
+     */
+    public function comment() {
+        return $this->belongsTo('App\Comment');
+    }
 }

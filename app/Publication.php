@@ -12,8 +12,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Publication extends Model {
 
-  protected $table = 'publications';
+    protected $table = 'publications';
 
-  protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'city', 'user_id'];
+
+    /**
+     * Get the user for the publication.
+     */
+    public function user() {
+        return $this->hasOne('App\User');
+    }
+
+    /**
+     * Get the comments for the publication.
+     */
+    public function comments() {
+        return $this->hasMany('App\Comment');
+    }
 
 }
