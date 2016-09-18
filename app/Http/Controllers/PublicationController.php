@@ -79,9 +79,14 @@ class PublicationController extends Controller {
      * @return Response
      */
     public function show($id) {
-        $publication = Publication::find($id);
+        try {
+            $publication = Publication::findOrFail($id);
 
-        return $this->response->withItem($publication, new PublicationTransformer);
+            return $this->response->withItem($publication, new PublicationTransformer);
+
+        } catch (\Exception $error) {
+            return $this->response->errorInternalError($error->getMessage());
+        }
     }
 
     /**
