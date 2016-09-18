@@ -36,19 +36,31 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'],
             'uses' => 'UserController@logout',
             'as' => 'logoutUser'
         ]);
-    });
 
-//$app->group(['namespace' => 'App\Http\Controllers'] , function($app){
-//    $api = 'api';
-//    $app->get($api.'/', ['uses' => 'PublicationController@getPublications', 'as' => 'allPublications']);
-//
-//    $app->get($api.'/publication/{id}', [
-//        'uses' => 'PublicationController@getPublication',
-//        'as' => 'singlePublication',
-//        'middleware' => 'auth'
-//    ]);
-//
-//    $app->post($api.'/publication', ['uses' => 'PublicationController@savePublication', 'as' => 'savePublication']);
-//    $app->put($api.'/publication/{id}', ['uses' => 'PublicationController@updatePublication', 'as' => 'updatePublication']);
-//    $app->delete($api.'/publication/{id}', ['uses' => 'PublicationController@deletePublication', 'as' => 'deletePublication']);
-//});
+        // Publication
+        $app->get('publication', [
+            'uses' => 'PublicationController@index',
+            'as' => 'showPublications'
+        ]);
+
+        $app->get('publication/{id}', [
+            'uses' => 'PublicationController@show',
+            'as' => 'showPublication'
+        ]);
+
+        $app->post('publication', [
+            'uses' => 'PublicationController@store',
+            'as' => 'savePublication'
+        ]);
+
+        $app->put('publication/{id}', [
+            'uses' => 'PublicationController@update',
+            'as' => 'updatePublication'
+        ]);
+
+        $app->delete('publication/{id}', [
+            'uses' => 'PublicationController@destroy',
+            'as' => 'destroyPublication'
+        ]);
+
+    });

@@ -33,8 +33,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * Get the publication that owns the user.
      */
-    public function publication() {
-        return $this->belongsTo('App\Publication');
+    public function publications() {
+        return $this->hasMany('App\Publication');
     }
 
     /**

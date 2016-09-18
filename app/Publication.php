@@ -20,7 +20,7 @@ class Publication extends Model {
      * Get the user for the publication.
      */
     public function user() {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
 
     /**

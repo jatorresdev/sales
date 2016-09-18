@@ -101,8 +101,8 @@ class UserController extends Controller {
 
         try {
             $id = Auth::user()->id;
-            $user = User::find($id);
-
+            $user = User::findOrFail($id);
+            
             $user->name = $request->input('name', $user->name);
             $user->last_name = $request->input('last_name', $user->last_name);
             $user->email = $request->input('email', $user->email);
