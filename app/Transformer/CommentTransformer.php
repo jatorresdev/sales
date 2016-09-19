@@ -34,6 +34,7 @@ class CommentTransformer extends Fractal\TransformerAbstract {
                 'title' => $comment->publication->title,
                 'description' => $comment->publication->description,
                 'city' => $comment->publication->city,
+                'photo' => $comment->publication->photo,
                 'created_at' => $comment->publication->created_at,
             ],
             'user' => [

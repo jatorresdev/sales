@@ -47,6 +47,10 @@ class PublicationController extends Controller {
      * @return Response
      */
     public function store(Request $request) {
+        $documentRoot = $request->server('DOCUMENT_ROOT');
+        $serverName = 'http://' . $request->server('SERVER_NAME');
+        $folderImage = '/assets/imgs/publication';
+
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
@@ -62,6 +66,14 @@ class PublicationController extends Controller {
             $publication->description = $request->input('description');
             $publication->city = $request->input('city');
             $publication->user_id = $user_id;
+
+            $photo = $request->file('photo');
+            if ($request->hasFile('photo') && $photo->isValid()) {
+                $request->file('photo')
+                    ->move($documentRoot . $folderImage, $photo->getClientOriginalName());
+
+                $publication->photo = $serverName . $folderImage . '/' . $photo->getClientOriginalName();
+            }
 
             $publication->save();
 
@@ -96,6 +108,10 @@ class PublicationController extends Controller {
      * @return Response
      */
     public function update(Request $request, $id) {
+        $documentRoot = $request->server('DOCUMENT_ROOT');
+        $serverName = 'http://' . $request->server('SERVER_NAME');
+        $folderImage = '/assets/imgs/publication';
+
         $this->validate($request, [
             'city' => 'max:100'
         ]);
@@ -108,7 +124,14 @@ class PublicationController extends Controller {
                 $publication->title = $request->input('title', $publication->title);
                 $publication->description = $request->input('description', $publication->description);
                 $publication->city = $request->input('city', $publication->city);
-                $publication->user_id = $publication->user_id;
+
+                $photo = $request->file('photo');
+                if ($request->hasFile('photo') && $photo->isValid()) {
+                    $request->file('photo')
+                        ->move($documentRoot . $folderImage, $photo->getClientOriginalName());
+
+                    $publication->photo = $serverName . $folderImage . '/' . $photo->getClientOriginalName();
+                }
 
                 $publication->save();
                 return $this->response->withItem($publication, new PublicationTransformer);

@@ -29,6 +29,7 @@ class PublicationTransformer extends Fractal\TransformerAbstract {
             'title' => $publication->title,
             'description' => $publication->description,
             'city' => $publication->city,
+            'photo' => $publication->photo,
             'created_at' => $publication->created_at,
             'user' => [
                 'id' => $publication->user->id,

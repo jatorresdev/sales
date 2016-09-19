@@ -14,7 +14,7 @@ class Publication extends Model {
 
     protected $table = 'publications';
 
-    protected $fillable = ['title', 'description', 'city', 'user_id'];
+    protected $fillable = ['title', 'description', 'photo', 'city', 'user_id'];
 
     /**
      * Get the user for the publication.
