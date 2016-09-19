@@ -45,6 +45,9 @@ class UserController extends Controller {
      * @return Response
      */
     public function store(Request $request) {
+        $documentRoot = $request->server('DOCUMENT_ROOT');
+        $serverName = 'http://' . $request->server('SERVER_NAME');
+        $folderImage = '/assets/imgs/user';
 
         $this->validate($request, [
             'name' => 'required|max:90',
@@ -65,6 +68,14 @@ class UserController extends Controller {
             $user->telephone = $request->input('telephone', '');
             $user->password = $request->input('password');
             $user->password = app('hash')->make($request->input('password'));
+
+            $photo = $request->file('photo');
+            if ($request->hasFile('photo') && $photo->isValid()) {
+                $request->file('photo')
+                    ->move($documentRoot . $folderImage, $photo->getClientOriginalName());
+
+                $user->photo = $serverName . $folderImage . '/' . $photo->getClientOriginalName();
+            }
 
             $user->save();
             return $this->response->withItem($user, new UserTransformer);
@@ -91,6 +102,10 @@ class UserController extends Controller {
      * @return Response
      */
     public function update(Request $request) {
+        $documentRoot = $request->server('DOCUMENT_ROOT');
+        $serverName = 'http://' . $request->server('SERVER_NAME');
+        $folderImage = '/assets/imgs/user';
+
         $this->validate($request, [
             'name' => 'max:90',
             'last_name' => 'max:90',
@@ -102,13 +117,21 @@ class UserController extends Controller {
         try {
             $id = Auth::user()->id;
             $user = User::findOrFail($id);
-            
+
             $user->name = $request->input('name', $user->name);
             $user->last_name = $request->input('last_name', $user->last_name);
             $user->email = $request->input('email', $user->email);
             $user->cellphone = $request->input('cellphone', $user->cellphone);
             $user->telephone = $request->input('telephone', $user->telephone);
             $user->password = $request->input('password', $user->password);
+
+            $photo = $request->file('photo');
+            if ($request->hasFile('photo') && $photo->isValid()) {
+                $request->file('photo')
+                    ->move($documentRoot . $folderImage, $photo->getClientOriginalName());
+
+                $user->photo = $serverName . $folderImage . '/' . $photo->getClientOriginalName();
+            }
 
             $user->save();
             return $this->response->withItem($user, new UserTransformer);

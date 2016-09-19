@@ -19,8 +19,9 @@ class UserTransformer extends Fractal\TransformerAbstract {
             'name' => $user->name,
             'last_name' => $user->last_name,
             'email' => $user->email,
-            'cellphone' => (int) $user->cellphone,
-            'telephone' => (int) $user->telephone,
+            'cellphone' => $user->cellphone,
+            'telephone' => $user->telephone,
+            'photo' => $user->photo
         ];
     }
 }

@@ -36,9 +36,9 @@ class PublicationTransformer extends Fractal\TransformerAbstract {
                 'last_name' => $publication->user->last_name,
                 'email' => $publication->user->email,
                 'cellphone' => $publication->user->cellphone,
-                'telephone' => $publication->user->telephone
+                'telephone' => $publication->user->telephone,
+                'photo' => $publication->user->photo
             ]
-
         ];
     }
 }

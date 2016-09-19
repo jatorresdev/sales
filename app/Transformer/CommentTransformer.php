@@ -42,9 +42,9 @@ class CommentTransformer extends Fractal\TransformerAbstract {
                 'last_name' => $comment->user->last_name,
                 'email' => $comment->user->email,
                 'cellphone' => $comment->user->cellphone,
-                'telephone' => $comment->user->telephone
+                'telephone' => $comment->user->telephone,
+                'photo' => $comment->user->photo
             ]
-
         ];
     }
 }
