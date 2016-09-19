@@ -25,8 +25,7 @@ class UserController extends Controller {
         $this->middleware('basicauth', [
             'except' => [
                 'store',
-                'login',
-                'logout'
+                'login'
             ]
         ]);
     }
