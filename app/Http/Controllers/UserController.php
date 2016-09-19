@@ -13,6 +13,7 @@ use App\User;
 use EllipseSynergie\ApiResponse\Contracts\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller {
 
@@ -67,7 +68,7 @@ class UserController extends Controller {
             $user->cellphone = $request->input('cellphone');
             $user->telephone = $request->input('telephone', '');
             $user->password = $request->input('password');
-            $user->password = app('hash')->make($request->input('password'));
+            $user->password = Hash::make($request->input('password'));
 
             $photo = $request->file('photo');
             if ($request->hasFile('photo') && $photo->isValid()) {
@@ -123,7 +124,10 @@ class UserController extends Controller {
             $user->email = $request->input('email', $user->email);
             $user->cellphone = $request->input('cellphone', $user->cellphone);
             $user->telephone = $request->input('telephone', $user->telephone);
-            $user->password = $request->input('password', $user->password);
+
+            if ($request->has('password')) {
+                $user->password = Hash::make($request->input('password'));
+            }
 
             $photo = $request->file('photo');
             if ($request->hasFile('photo') && $photo->isValid()) {
