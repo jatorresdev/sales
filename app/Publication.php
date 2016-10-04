@@ -30,4 +30,12 @@ class Publication extends Model {
         return $this->hasMany('App\Comment');
     }
 
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($publication) {
+            $publication->comments()->delete();
+        });
+    }
+
 }

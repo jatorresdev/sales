@@ -36,7 +36,7 @@ class PublicationController extends Controller {
      * @return Response
      */
     public function index() {
-        $publications = Publication::with('user')->get();
+        $publications = Publication::with('user')->orderBy('created_at', 'desc')->get();
 
         return $this->response->withCollection($publications, new PublicationTransformer);
     }
